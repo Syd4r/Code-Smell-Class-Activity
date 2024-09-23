@@ -3,49 +3,47 @@ import java.util.List;
 public class ReportGenerator {
     // Generates a detailed report
     public void generateReport(List<User> users) {
-        // Step 1: Initialize report content
         StringBuilder report = new StringBuilder();
         report.append("User Report\n");
         report.append("------------\n");
 
-        // Step 2: Process each user
         for (User user : users) {
-            // Retrieve user data
             String username = user.getUsername();
             String email = user.getEmail();
             String address = user.getAddress();
 
-            // Perform some data processing
             String processedData = processUserData(username, email, address);
 
-            // Format data for report
-            String formattedData = formatReportData(username, email, address, processedData);
+            String formattedData = formatReportData(username, email, address);
 
-            // Append formatted data to report
-            report.append(formattedData);
-            report.append("\n");
+            List<String> data = List.of(processedData, formattedData);
+
+            appendReportData(report, data);
         }
 
-        // Step 3: Save the report to a file
         saveReportToFile(report.toString());
     }
 
     // Processes user data
     private String processUserData(String username, String email, String address) {
-        // Data processing logic here
         return "Processed: " + username + ", " + email + ", " + address;
     }
 
     // Formats report data
-    private String formatReportData(String username, String email, String address, String processedData) {
-        // Formatting logic here
-        return "User: " + username + ", Email: " + email + ", Address: " + address + ", " + processedData;
+    private String formatReportData(String username, String email, String address) {
+        return "User: " + username + ", Email: " + email + ", Address: " + address;
     }
 
     // Saves the report to a file
     private void saveReportToFile(String reportContent) {
-        // File saving logic here
         System.out.println("Report saved to file:\n" + reportContent);
+    }
+
+    // Appends data to the report
+    private void appendReportData(StringBuilder report, List<String> data) {
+        for (String item : data) {
+            report.append(item).append("\n");
+        }
     }
 }
 
