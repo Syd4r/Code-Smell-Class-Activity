@@ -1,4 +1,4 @@
-public class User {
+class User {
     private String username;
     private Profile profile;
 
@@ -20,7 +20,7 @@ public class User {
     }
 }
 
-public class Profile {
+class Profile {
     private String email;
     private String address;
 
