@@ -11,9 +11,12 @@ public class User {
         return username;
     }
 
-    // Method that is overly interested in Profile details
-    public String getProfileSummary() {
-        return "User: " + username + ", Email: " + profile.getEmail() + ", Address: " + profile.getAddress();
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public String getUserSummary() {
+        return "Username: " + getUsername() + ", " + getProfile().getProfileSummary();
     }
 }
 
@@ -32,5 +35,9 @@ public class Profile {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getProfileSummary() {
+        return "Email: " + getEmail() + ", Address: " + getAddress();
     }
 }
