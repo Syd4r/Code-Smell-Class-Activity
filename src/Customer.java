@@ -1,6 +1,9 @@
 // too difficult - you can ignore it, if you like
 
-public class Customer {
+import java.util.List;
+import java.util.stream.Collectors;
+
+class Customer {
     private Order order;
 
     public Customer(Order order) {
@@ -8,16 +11,19 @@ public class Customer {
     }
 
     public void processPurchase() {
-        order.getItems().stream()
+        List<Item> processedItems = order.getItems().stream()
             .filter(item -> item.isInStock())
             .map(item -> item.applyDiscount(10))
-            .forEach(item -> item.addToOrder(order))
+            .peek(item -> item.addToOrder(order))
+            .collect(Collectors.toList());
+
+        processedItems.stream()
             .reduce((item1, item2) -> item1)
             .ifPresent(item -> System.out.println("Order processed for " + item.getName()));
     }
 }
 
-public class Order {
+class Order {
     private List<Item> items;
 
     public Order(List<Item> items) {
@@ -29,7 +35,7 @@ public class Order {
     }
 }
 
-public class Item {
+class Item {
     private String name;
     private boolean inStock;
     private double price;
@@ -50,7 +56,7 @@ public class Item {
     }
 
     public void addToOrder(Order order) {
-        // Add item to order
+        System.out.println("Adding " + this.getName() + " to order");
     }
 
     public String getName() {
